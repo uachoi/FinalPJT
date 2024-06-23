@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head><title>Smart Factory Control System</title>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+	<body>
+		<!-- ConveyorBelt Setting-->
+		<h2> ConveyorBelt Control: </h2>
+		<hr>
+		<form method="get" action="cvbelt.php">
+			<input type="submit" value="ON" name="on">
+			<input type="submit" value="OFF" name="off">
+			<input type="submit" value="STOP" name="stop">
+			<input type="submit" value="Call ROBOT" name="call">
+		</form>
+		<?php
+		
+		?><br>
+		
+		
+		<!-- Robot Setting-->
+		<h2> Logistics Robot Control: </h2>
+		<hr>
+		<form method="get" action="robotctrl.php">
+			<input type="submit" value="ON" name="on">
+			<input type="submit" value="OFF" name="off">
+			<input type="submit" value="STOP" name="stop">
+			<input type="submit" value="BACK" name="back">
+		</form>
+		<?php
+
+		
+		?><br>
+		
+		
+		<!-- Display Databases-->
+		<h2> ConveyorBelt_Result from DB: </h2> 
+		<hr>
+		<form action="dbresults.php" method="post">
+			<input type="submit" value="SEARCH" name="search">
+			<!--<input type="reset" value="RELOAD" name="reload">
+			-->
+			<input type="submit" value="CLEAN" name="clean">
+
+		</form>
+		
+		<!--RELOAD DB-->
+		<form method="post" action=""><br>
+			<input type="submit" value="RELOAD" name="reload" id="reload">
+		</form>
+		
+		<div id="data-container"> 
+			<!-- data container: Here is Data writting part-->
+		</div>
+		
+		<script>
+			$(document).ready(function() {
+				$("#reload").click(function() {
+					$ajax({
+						url: "dbresults.php",
+						type: "POST"
+						success:function(data) {
+							$("#data-container").html(data);
+						},
+						error:function() {
+							alert("Error retrieving data");
+						}
+					});
+				});
+			});
+			
+			$(document).ready(function()) {
+				$("#reload").trigger("click");
+			});
+			
+		</script>
+		
+	</body>
+</html>

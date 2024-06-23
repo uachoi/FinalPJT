@@ -1,0 +1,73 @@
+<!--Database_results and img file from JS-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DATABASES: Smart Factory Control System</title>
+</head>
+<body>
+    <h2>Object Identification Results &gt;&gt;</h2>
+
+    <form method="get" action="dbresults.php">
+        <input type="submit" value="SEARCH" name="search">
+        <input type="submit" value="CLEAN" name="clean">
+        <input type="submit" value="RELOAD" name="reload">
+    </form>
+
+    <?php
+        // Connecting to the Server
+        $servername = "localhost";
+        $user = "root";
+        $password = "0000";
+        $dbname = "ConveyorBelt"; // ConveyorBelt: Product, cResult, Transmission
+
+        $conn = new mysqli($servername, $user, $password, $dbname); // Connecting test
+        if(isset($_GET['search'])){
+			if ($conn->connect_error) {
+				echo "<h2>Connecting to the Server is FAIL</h2>";
+			} else {
+				echo "<h2>Connecting to the Server is Successful</h2>";
+
+				$sql1 = "SELECT * FROM Product"; // Product table
+				$result1 = $conn->query($sql1);
+
+				if (isset($result1) && $result1->num_rows > 0) {
+					while ($row = $result1->fetch_assoc()) {
+						echo "productID: " . $row["productID"] . " - productCOLOR: " . $row["productCOLOR"] .
+							" - productSIZE: " . $row["productSIZE"] . " - productLOCATION: " . $row["productLOCATION"] .
+							" - productTS: " . $row["productTS"] . " - robotID: " . $row["robotID"] . " - pTIME: " . $row["pTIME"] . "<br>";
+					}
+				} else {
+					echo "0 results";
+				}
+			}
+		}
+		if(isset($_GET['clean'])){
+			echo "<h3> Displayed data cleaned successfully.</h3>";
+		}
+		
+		if(isset($_GET['reload'])){ //reload the table
+			if($conn->connect_error){
+				echo "<h2>Connecting to the Server is FAIL </h2>";
+			}else{
+				echo "<h2>Connecting to the Server is Successful </h2>";
+				
+				$sql2="SELECT * FROM cResult"; //cResult table
+				$result2=$conn->query($sql2);
+				
+				if (isset($result2) && $result2->num_rows > 0) {
+					while ($row = $result2->fetch_assoc()) {
+						
+						echo "resultID: " . $row["resultID"] . " - productID: " . $row["productID"] .
+							" - cRESULT: " . $row["cRESULT"] . " - cTIME: " . $row["cTIME"] . "<br>";
+					}
+				} else {
+					echo "Database is Updated!<br> ";
+					echo "0 results";
+				}
+			}
+		}
+        $conn->close();
+    ?>
+</body>
+</html>

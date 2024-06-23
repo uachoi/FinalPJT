@@ -1,0 +1,18 @@
+<!--cvbelt.php-->
+<!DOCTYPE html>
+<html>
+<head><title> Smart Factory Control System</title></head>
+
+<body>
+	<h2>ConveyorBelt Control: </h2>
+	
+	<form method="get" action="cvbelt.php">
+		<input type="submit" value="ON" name="on">
+		<
+	</form>
+	
+	<?php
+	
+	?>
+</body>
+</html>

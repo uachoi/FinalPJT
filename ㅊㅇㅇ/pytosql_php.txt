@@ -1,0 +1,45 @@
+import socket
+import mysql.connector
+
+
+db_config = {
+    'user': 'root',
+    'password': '0000',
+    'host': 'localhost',  
+    'database': 'ConveyorBelt',
+    'port': '3306',
+}
+
+HOST='192.168.0.3'
+PORT=12345
+
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_socket.bind((HOST, PORT))  
+server_socket.listen(5)
+
+print('Server waiting...')
+
+
+##print('Before the loop')
+
+while True:
+    client_socket, addr = server_socket.accept()  
+    print(f'Client connecting: {addr}')
+    ##sys.stdout.flush()
+
+    data = client_socket.recv(1024).decode() 
+    print(f'recv data: {data}') ##
+
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+
+    query = "INSERT INTO cRESULT (cRESULT,cTIME) VALUES (%s,%s)" ##
+    values = (msg,datetime.now())
+
+    cursor.execute(query, values)
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+
+    client_socket.close()  
