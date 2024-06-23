@@ -1,0 +1,49 @@
+>모든 테이블 공통<
+- timestamp/ _TIME : to_char 함수 사용 : HH24:MI:SS >> timestamp로 type 바꾸기
+- color // 'red' or 'blue'
+- product, robot location 나타낼 때: 그림에 현재 위치 표시한 이미지 출력하는 방법으로 -- 어떻게 출력할 지 방법 찾기
+- Collation > utf8mb4_0900_ai_ci : uft8mb4) UTF-8인코딩체계에서 최대 4바이트로 저장됨
+
+>Product 테이블<
+- productID=int(4) NOT NULL
+- productCOLOR 방법 // 색은 빨강&파랑; HSL color/ 'red' 'blue'로 전송하기, red&blue 제외하고는 nothing으로 분류함
+- productSIZE // ex) 50(cm)
+- productLOCATION : 위치 표현 방법 // ex) 카메라3개에 감지되면 그 위치에 있다고 알려주기 -> 그림(이미지)로 웹페이지에 출력 
+- productTS: product timestamp ; 뭐였는지까먹음
+- LOCATION이랑 TimeStamp는 1번의 과정에 총 3번 업데이트 되도록 함
+
+
+> 객체 구분 결과(Mask R-CNN result) 테이블 : cRESULT <
+- Mask R-CNN에 대한 객체 구분에 대한 결과(정보) 저장
+- 객체 구분 결과를 어떻게 표현할 지 정해야 함
+- c: Calssification
+- cRESULT : 어디로(어떤 구역으로) 분류가 됐는 지 // 일단은 varchar
+- cTIME:컨베이어벨트에 대한 타임스탬프(정보기록시간)
+
+
+> 컨베이어벨트 최종 결과 전송(:Transmission) 테이블 <
+- 객체 구분 후 결과가 웹 서버로 언제 전송되었고, 어떠한 응답을 받았는지에 대한 정보 저장
+// 주 기능은 웹 서버로 전송 후 admin이 확인이 가능하도로 해야함
+- t:transmission
+- wsRES: web server responce ; 웹 서버 응답 ,, 굳이 필요한가?? 일단 T/F로 
+- tTIME: 웹 서버로 전송된 시간
+
+
+> 로봇에 대한(:Robot) 테이블 <
+- curLOC;current location : 로봇의 (현재) 위치 //??
+- rDES; robot's destination info // 경로 바뀌는 과정 표현(화살표 또는 오/왼 이런식으로)
+- rTIME: 로봇에 대한 정보 기록 시간
+
+
+> 이동 경로(:Path) 테이블 <
+- start/end Loc: 경로 시작과 종료 위치
+(뭘로 표현할 지 생각해야함 ; 그림 참고)
+-pInfo; path info
+(뭘로 표현할 지 생각해야함 ; 경로 블록 단위?)
+-pTIME: 이동경로에 대한 정보 기록 시간
+
+
+> 로봇의 최종 결과 전송 테이블 <
+- productID/robotID/pathID: 각 객체/로봇/경로와 연결
+-rrTIME; robot result : 로봇 최종 결과를 전송한 시간
+
