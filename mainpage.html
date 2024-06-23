@@ -1,0 +1,111 @@
+//Main2.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Factory Control System</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+    <!--ConveyorBelt Control -->
+    <div style="float: left; width: 50%;">
+        <img src="cv.png" alt="cvbeltimg" height="100" width="85"
+        style="float: left; padding-right:6px;">
+        <h1>            ConveyorBelt Control:</h1>
+        <hr>
+  
+        <form id="cvForm">
+            <input type="button" value="WORK" onclick="cvbForm('cvbelt.php', 'formFrame')">
+            <input type="button" value="STOP" onclick="cvbForm('cvbelt.php', 'formFrame')">
+            <input type="button" value="Call ROBOT" onclick="cvbForm('cvbelt.php', 'formFrame')">
+        </form>
+        <br><br><br>
+        
+        <!--Robot Setting-->
+        <img src="rb.png" alt="rbimg" height="90" width="95"
+        style="float: left; padding-right:6px;">
+        <h1>            Logistics Robot Control :</h1>
+        <hr>
+  
+        <form id="rbForm">
+            <input type="button" value="STOP" onclick="rbtForm('robotctrl.php', 'formFrame')">
+            <input type="button" value="BACK" onclick="rbtForm('robotctrl.php', 'formFrame')">
+        </form>
+        <br><br><br>
+        
+        <!--Display Databases-->
+        <img src="dbimg.png" alt="dbimg" height="90" width="85"
+        style="float: left; padding-right:6px;">
+        <h1>            ConveyorBelt Result from DB : :</h1>
+        <hr>
+  
+        <form id="dbForm">
+            <input type="button" value="SEARCH" onclick="dbtForm('dbresults.php', 'formFrame')">
+            <input type="button" value="CLEAN" onclick="dbtForm('dbresults.php', 'formFrame')">
+            <input type="button" value="RELOAD" onclick="dbtForm('dbresults.php', 'formFrame')">
+        </form>
+        <br><br><br>
+        
+    </div>
+
+    <div style="float: left; width: 50%;">
+        <iframe name="formFrame" style="width: 100%; height: 100vh;"></iframe>
+    </div>
+
+    <script>
+        function cvbForm(action, target) {
+            var form = document.getElementById("cvForm");
+            form.action = action;
+            form.target = target;
+            form.submit();
+        }
+        
+        function rbtForm(action, target) {
+            var form = document.getElementById("rbForm");
+            form.action = action;
+            form.target = target;
+            form.submit();
+        }
+        
+        function dbtForm(action, target) {
+            var form = document.getElementById("dbForm");
+            form.action = action;
+            form.target = target;
+            form.submit();
+        }
+    </script>
+</body>
+</html>
+
+
+==================================================
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Smart Factory SYS</title>
+</head>
+<frameset cols="50%, *">
+	<frame src="Main.html" scrolling="no" noresize>
+	<frame src="Main.html" scrolling="yes">
+</frameset>
+
+<body>
+	<style>
+		iframe{
+		width:100%;
+		height:100%;
+		border:none;
+	}
+	</style>
+	<div>
+	
+	</div>
+<script>
+	function loadPhpFile(phpFile){
+		document.getElementById("phpFrame").src=phpFile;
+	}
+</script>
+</body>
+</html>
+
