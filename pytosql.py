@@ -1,4 +1,4 @@
-##py to sql
+##py to sql (I am Client) 
 import socket
 import mysql.connector
 from datetime import datetime
